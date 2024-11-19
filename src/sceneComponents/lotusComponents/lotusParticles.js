@@ -114,12 +114,14 @@ class LotusParticles {
         this.bufferGeometry.setDrawRange(0, this.count)
         this.bufferGeometry.setAttribute('aParticlesUv', new THREE.BufferAttribute(this.particlesUvArray, 2))
         this.bufferGeometry.setAttribute('aSize', new THREE.BufferAttribute(this.sizesArray, 1))
+        
 
         this.points = new THREE.Points(this.bufferGeometry, this.shaderMaterial)
+        this.points.scale.set(0.25, 0.25, 0.25)
         this.points.frustumCulled = false
 
         this.points.renderOrder = 0
-        // this.scene.add(this.points)
+        this.scene.add(this.points)
 
     }
 

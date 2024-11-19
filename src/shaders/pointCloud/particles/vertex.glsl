@@ -52,12 +52,10 @@ void main()
     // angle /= (M_PI * 20.0);
     // float strength = mod(angle * 20.0, 1.0);
     vUv = uv;
-    vColor = vec3(0.0);
-    // vColor = mix(uShadowColor, uColor, strength);
-    vColor = mix(mix(uColor, particle.xyz, strength), uShadowColor, strength);
-    // vColor = mix(uShadowColor, uLightColor, strength);
-    // vColor = mix(vColor, uColor, strength);
-    // vColor = uColor;
+    vColor = vec3(1.0);
+
+    // vColor = mix(mix(uColor, particle.xyz, strength), uShadowColor, strength);
+
     vNormal = modelNormal;
     vPosition = modelPosition.xyz;
 

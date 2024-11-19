@@ -54,7 +54,7 @@ class Cursor extends EventEmitter {
 
     handleTick () {
         this.calculateSpeed()
-        this.determineParallax()
+        // this.determineParallax()
     }
 
     calculateSpeed() {

@@ -30,8 +30,6 @@ class Time extends EventEmitter {
         // console.log(this.delta / 1000) //helps convert from ms to s
 
         this.trigger('tick')
-
-
         requestAnimationFrame(this.tick)
         stats.end()
     }

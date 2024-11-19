@@ -13,7 +13,7 @@ class LoadingScreen {
         this.experience = new Experience()
 
 
-        this.postScene = this.experience.postScene
+        this.scene = this.experience.scene
         this.sizes = this.experience.sizes
         this.time = this.experience.time
         this.cursor = this.experience.cursor
@@ -48,7 +48,7 @@ class LoadingScreen {
         )
 
         this.instance = new THREE.Mesh(this.geometry, this.material)
-        this.postScene.instance.add(this.instance)
+        this.scene.add(this.instance)
 
         this.loadingManager = new THREE.LoadingManager(
             // Loaded
