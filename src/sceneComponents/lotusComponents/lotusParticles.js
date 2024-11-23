@@ -63,7 +63,8 @@ class LotusParticles {
                 // blending: THREE.AdditiveBlending,
                 // depthTest: true,
                 // depthWrite: false,
-                uniforms: this.uniforms
+                uniforms: this.uniforms,
+                // transparent: true
             }
         )
 
@@ -117,10 +118,11 @@ class LotusParticles {
         
 
         this.points = new THREE.Points(this.bufferGeometry, this.shaderMaterial)
-        this.points.scale.set(0.25, 0.25, 0.25)
+        this.points.scale.set(0.215, 0.215, 0.215)
         this.points.frustumCulled = false
 
         this.points.renderOrder = 0
+        this.points.position.set(0, 0, -6)
         this.scene.add(this.points)
 
     }
@@ -131,9 +133,14 @@ class LotusParticles {
 
     update() {
         const deltaTime = this.time.delta / 1000
+        const elapsedTime = this.time.elapsed / 1000
         
         this.shaderMaterial.uniforms.uParticlesTexture.value = this.gpgpu.instance.getCurrentRenderTarget(this.gpgpu.particlesVariable).texture
         this.shaderMaterial.uniforms.uMouse.value.set(this.cursor.ndcFollowMouse) 
+
+        this.points.rotation.x = 0.1 * Math.sin(this.points.rotation.y + elapsedTime*0.2)
+
+        
     }
 }
 
