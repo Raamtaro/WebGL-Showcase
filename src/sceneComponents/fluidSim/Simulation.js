@@ -1,6 +1,15 @@
 import * as THREE from 'three'
 import Experience from '../experience/experience.js'
 
+import ExternalForce from './NavierStokesCalculation/Expressions/ExternalForce.js'
+import Advection from './NavierStokesCalculation/Expressions/Advection.js'
+import Viscous from './NavierStokesCalculation/Expressions/Viscous.js'
+import Divergence from './NavierStokesCalculation/Expressions/Divergence.js'
+import Pressure from './NavierStokesCalculation/Expressions/Pressure.js'
+import Poisson from './NavierStokesCalculation/Expressions/Poisson.js'
+
+
+
 class Simulation {
     constructor() {
         this.experience = new Experience()
@@ -50,8 +59,9 @@ class Simulation {
 
 
     init() {
-        this.createAllFBO()
+        
         this.calcSize()
+        this.createAllFBO()
         this.createPass()
     }
 
@@ -81,54 +91,54 @@ class Simulation {
     }
 
     createPass() {
-        // this.advection = new Advection({
-        //     cellScale: this.cellScale,
-        //     fboSize: this.fboSize,
-        //     dt: this.options.dt,
-        //     src: this.fbos.vel_0,
-        //     dst: this.fbos.vel_1
-        // });
+        this.advection = new Advection({
+            cellScale: this.cellScale,
+            fboSize: this.fboSize,
+            dt: this.options.dt,
+            src: this.fbos.vel_0,
+            dst: this.fbos.vel_1
+        });
 
-        // this.externalForce = new ExternalForce({
-        //     cellScale: this.cellScale,
-        //     cursor_size: this.options.cursor_size,
-        //     dst: this.fbos.vel_1,
-        // });
+        this.externalForce = new ExternalForce({
+            cellScale: this.cellScale,
+            cursor_size: this.options.cursor_size,
+            dst: this.fbos.vel_1,
+        });
 
-        // this.viscous = new Viscous({
-        //     cellScale: this.cellScale,
-        //     boundarySpace: this.boundarySpace,
-        //     viscous: this.options.viscous,
-        //     src: this.fbos.vel_1,
-        //     dst: this.fbos.vel_viscous1,
-        //     dst_: this.fbos.vel_viscous0,
-        //     dt: this.options.dt,
-        // });
+        this.viscous = new Viscous({
+            cellScale: this.cellScale,
+            boundarySpace: this.boundarySpace,
+            viscous: this.options.viscous,
+            src: this.fbos.vel_1,
+            dst: this.fbos.vel_viscous1,
+            dst_: this.fbos.vel_viscous0,
+            dt: this.options.dt,
+        });
 
-        // this.divergence = new Divergence({
-        //     cellScale: this.cellScale,
-        //     boundarySpace: this.boundarySpace,
-        //     src: this.fbos.vel_viscous0,
-        //     dst: this.fbos.div,
-        //     dt: this.options.dt,
-        // });
+        this.divergence = new Divergence({
+            cellScale: this.cellScale,
+            boundarySpace: this.boundarySpace,
+            src: this.fbos.vel_viscous0,
+            dst: this.fbos.div,
+            dt: this.options.dt,
+        });
 
-        // this.poisson = new Poisson({
-        //     cellScale: this.cellScale,
-        //     boundarySpace: this.boundarySpace,
-        //     src: this.fbos.div,
-        //     dst: this.fbos.pressure_1,
-        //     dst_: this.fbos.pressure_0,
-        // });
+        this.poisson = new Poisson({
+            cellScale: this.cellScale,
+            boundarySpace: this.boundarySpace,
+            src: this.fbos.div,
+            dst: this.fbos.pressure_1,
+            dst_: this.fbos.pressure_0,
+        });
 
-        // this.pressure = new Pressure({
-        //     cellScale: this.cellScale,
-        //     boundarySpace: this.boundarySpace,
-        //     src_p: this.fbos.pressure_0,
-        //     src_v: this.fbos.vel_viscous0,
-        //     dst: this.fbos.vel_0,
-        //     dt: this.options.dt,
-        // });
+        this.pressure = new Pressure({
+            cellScale: this.cellScale,
+            boundarySpace: this.boundarySpace,
+            src_p: this.fbos.pressure_0,
+            src_v: this.fbos.vel_viscous0,
+            dst: this.fbos.vel_0,
+            dt: this.options.dt,
+        });
     }
 
     handleResize() {
@@ -139,7 +149,37 @@ class Simulation {
     }
 
     update() {
+        if(this.options.isBounce){
+            this.boundarySpace.set(0, 0);
+        } else {
+            this.boundarySpace.copy(this.cellScale);
+        }
 
+        this.advection.update(this.options);
+
+        this.externalForce.update({
+            cursor_size: this.options.cursor_size,
+            mouse_force: this.options.mouse_force,
+            cellScale: this.cellScale
+        });
+
+        let vel = this.fbos.vel_1;
+
+        if(this.options.isViscous){
+            vel = this.viscous.update({
+                viscous: this.options.viscous,
+                iterations: this.options.iterations_viscous,
+                dt: this.options.dt
+            });
+        }
+
+        this.divergence.update({vel});
+
+        const pressure = this.poisson.update({
+            iterations: this.options.iterations_poisson,
+        });
+
+        this.pressure.update({ vel , pressure});
     }
 
 }

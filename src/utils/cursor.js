@@ -43,13 +43,13 @@ class Cursor extends EventEmitter {
         this.parallaxCoords.y = event.clientY / this.sizes.height - 0.5
 
         this.mouse.x = event.clientX / this.sizes.width
-        this.mouse.y = 1.0 - (event.clientY / this.sizes.height)
+        this.mouse.y = event.clientY / this.sizes.height
 
         this.ndcMouse.x = (event.clientX / this.sizes.width) * 2 - 1;
         this.ndcMouse.y = -(event.clientY / this.sizes.height) * 2 + 1;
 
 
-        // console.log(this.parallaxCoords)
+        // console.log(this.mouse)
     }
 
     handleTick () {
