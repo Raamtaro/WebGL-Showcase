@@ -33,7 +33,9 @@ class Advection extends ShaderPass {
                     }
                 },
             },
-            output: simProps.dst
+            output: simProps.dst,
+            renderer: simProps.renderer,
+            transparent: true,
         })
 
         this.init()
@@ -67,7 +69,8 @@ class Advection extends ShaderPass {
         const boundaryM = new THREE.RawShaderMaterial({
             vertexShader: line_vert,
             fragmentShader: advection_frag,
-            uniforms: this.uniforms
+            uniforms: this.uniforms,
+            transparent: true,
         }) 
 
         this.line = new THREE.LineSegments(boundaryG, boundaryM);

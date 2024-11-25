@@ -36,11 +36,11 @@ class Simulation {
 
         this.options = {
             iterations_poisson: 32,
-            iterations_viscous: 17,
-            mouse_force: 72,
+            iterations_viscous: 32,
+            mouse_force: 174,
             resolution: 0.5,
-            cursor_size: 35,
-            viscous: 337,
+            cursor_size: 20,
+            viscous: 30,
             isBounce: false,
             dt: 0.005,
             isViscous: true,
@@ -53,7 +53,7 @@ class Simulation {
 
         
         this.init()
-        this.time.on('tick', this.update.bind(this))
+        // this.time.on('tick', this.update.bind(this))
         this.sizes.on('resize', this.handleResize.bind(this))
     }
 
@@ -96,13 +96,15 @@ class Simulation {
             fboSize: this.fboSize,
             dt: this.options.dt,
             src: this.fbos.vel_0,
-            dst: this.fbos.vel_1
+            dst: this.fbos.vel_1,
+            renderer: this.experience.renderer.instance
         });
 
         this.externalForce = new ExternalForce({
             cellScale: this.cellScale,
             cursor_size: this.options.cursor_size,
             dst: this.fbos.vel_1,
+            renderer: this.experience.renderer.instance
         });
 
         this.viscous = new Viscous({
@@ -113,6 +115,7 @@ class Simulation {
             dst: this.fbos.vel_viscous1,
             dst_: this.fbos.vel_viscous0,
             dt: this.options.dt,
+            renderer: this.experience.renderer.instance
         });
 
         this.divergence = new Divergence({
@@ -121,6 +124,7 @@ class Simulation {
             src: this.fbos.vel_viscous0,
             dst: this.fbos.div,
             dt: this.options.dt,
+            renderer: this.experience.renderer.instance
         });
 
         this.poisson = new Poisson({
@@ -129,6 +133,7 @@ class Simulation {
             src: this.fbos.div,
             dst: this.fbos.pressure_1,
             dst_: this.fbos.pressure_0,
+            renderer: this.experience.renderer.instance
         });
 
         this.pressure = new Pressure({
@@ -138,6 +143,7 @@ class Simulation {
             src_v: this.fbos.vel_viscous0,
             dst: this.fbos.vel_0,
             dt: this.options.dt,
+            renderer: this.experience.renderer.instance
         });
     }
 
@@ -162,8 +168,12 @@ class Simulation {
             mouse_force: this.options.mouse_force,
             cellScale: this.cellScale
         });
+        
+
 
         let vel = this.fbos.vel_1;
+
+        
 
         if(this.options.isViscous){
             vel = this.viscous.update({
@@ -180,6 +190,8 @@ class Simulation {
         });
 
         this.pressure.update({ vel , pressure});
+
+        console.log('vel_0 UUID:', this.fbos.vel_0.texture.uuid);
     }
 
 }

@@ -27,7 +27,8 @@ class Poisson extends ShaderPass {
             output: simProps.dst,
 
             output0: simProps.dst_,
-            output1: simProps.dst
+            output1: simProps.dst,
+            renderer: simProps.renderer
         });
 
         this.init();
@@ -36,7 +37,7 @@ class Poisson extends ShaderPass {
     update({iterations}){
         let p_in, p_out;
 
-        for(var i = 0; i < iterations; i++) {
+        for(let i = 0; i < iterations; i++) {
             if(i % 2 == 0){
                 p_in = this.props.output0;
                 p_out = this.props.output1;
@@ -49,6 +50,8 @@ class Poisson extends ShaderPass {
             this.props.output = p_out;
             super.update();
         }
+
+        // console.log(p_in, p_out)
 
         return p_out;
     }    

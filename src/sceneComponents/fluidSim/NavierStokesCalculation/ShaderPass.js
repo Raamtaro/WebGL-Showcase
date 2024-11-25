@@ -1,15 +1,17 @@
 import * as THREE from 'three'
-import Experience from '../../experience/experience.js'
+
 
 class ShaderPass {
     constructor(props) { 
         this.props = props
         this.uniforms = this.props.material?.uniforms
+        
+        this.renderer = props.renderer
+        console.log(this.renderer) //Reading null
     }
 
     init() {
-        this.experience = new Experience()
-        this.renderer = this.experience.renderer.instance
+
 
         this.scene = new THREE.Scene()
         this.camera = new THREE.Camera()

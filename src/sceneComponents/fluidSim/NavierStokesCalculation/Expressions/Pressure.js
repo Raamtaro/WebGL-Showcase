@@ -28,7 +28,8 @@ class Pressure extends ShaderPass {
                     }
                 }
             },
-            output: simProps.dst
+            output: simProps.dst,
+            renderer: simProps.renderer
         });
 
         this.init();

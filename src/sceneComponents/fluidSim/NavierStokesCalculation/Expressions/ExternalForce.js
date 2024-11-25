@@ -9,10 +9,11 @@ import externalForce_frag from '../../shaders/fragment/externalForce.glsl'
 class ExternalForce extends ShaderPass {
     constructor(simProps){
         super({
-            output: simProps.dst
+            output: simProps.dst,
+            renderer: simProps.renderer
         });
 
-        this.experience = new Experience()
+        this.experience = window.experience
         this.cursor = this.experience.cursor
 
         this.init(simProps);
@@ -48,8 +49,8 @@ class ExternalForce extends ShaderPass {
     }
 
     update(props) {
-        const forceX = this.cursor.ndcFollowMouse.x / 2 * props.mouse_force
-        const forceY = this.cursor.ndcFollowMouse.y / 2 * props.mouse_force
+        const forceX = this.cursor.ndcDiff.x / 2 * props.mouse_force
+        const forceY = this.cursor.ndcDiff.y / 2 * props.mouse_force
 
         const cursorSizeX = props.cursor_size * props.cellScale.x
         const cursorSizeY = props.cursor_size * props.cellScale.y

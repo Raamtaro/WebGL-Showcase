@@ -24,7 +24,8 @@ class Divergence extends ShaderPass {
                     }
                 }
             },
-            output: simProps.dst
+            output: simProps.dst,
+            renderer: simProps.renderer
         })
 
         this.init();
@@ -32,6 +33,7 @@ class Divergence extends ShaderPass {
 
     update({ vel }){
         this.uniforms.velocity.value = vel.texture;
+        // console.log(vel.texture.uuid)
         super.update();
     }   
 }

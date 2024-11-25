@@ -36,7 +36,8 @@ class Viscous extends ShaderPass {
                 output: simProps.dst,
     
                 output0: simProps.dst_,
-                output1: simProps.dst
+                output1: simProps.dst,
+                renderer: simProps.renderer
             }
         )
         this.init();

@@ -16,20 +16,17 @@ class Output {
     constructor() {
         this.experience = new Experience()
         this.scene = this.experience.scene //The output gets rendered to the final scene,
-        // this.time = this.experience.time
+        
         this.init()
     }
 
     init() {
-
-        
-
         this.simulation = new Simulation() //This class contains the calculation for all of our FBO textures based on the Navier-Stokes Equation
 
         //The final render will be put into this.output
 
         this.output = new THREE.Mesh(
-            new THREE.PlaneGeometry(2, 2),
+            new THREE.PlaneGeometry(1, 1),
             new THREE.RawShaderMaterial(
                 {
                     uniforms:{
@@ -41,13 +38,31 @@ class Output {
                         }                        
                     },
                     vertexShader: face_vert,
-                    fragmentShader: color_vert
+                    fragmentShader: color_vert,
+                    
+                    
                 }
             )
         )
-        // this.output.visible = false
+        this.output.position.set(0, 0, 0)
+        this.output.visible = true
+
+        this.debugQuad = new THREE.Mesh(
+            new THREE.PlaneGeometry(1, 1),
+            new THREE.MeshBasicMaterial({ map: this.simulation.fbos.vel_0.texture })
+          );
+        this.debugQuad.position.set(0, 0, 0); 
+
+        this.debugQuad.visible = true
+        this.scene.add(this.debugQuad);
+
         this.scene.add(this.output)
 
+    }
+
+    update() {
+        this.simulation.update()
+        this.output.material.uniforms.velocity.value = this.simulation.fbos.vel_0.texture
     }
 }
 

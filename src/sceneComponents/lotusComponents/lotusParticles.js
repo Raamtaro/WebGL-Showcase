@@ -123,7 +123,7 @@ class LotusParticles {
 
         this.points.renderOrder = 0
         this.points.position.set(0, 0, -6)
-        this.scene.add(this.points)
+        // this.scene.add(this.points)
 
     }
 

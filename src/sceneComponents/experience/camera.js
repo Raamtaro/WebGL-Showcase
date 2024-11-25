@@ -12,34 +12,30 @@ class Camera {
 
         
         this.cameraGroup = new THREE.Group()
-        this.instance = new THREE.PerspectiveCamera(35, this.sizes.width/this.sizes.height, 0.1, 100)
-        this.config()
 
-        this.setControls()
-        this.time.on('tick', this.update.bind(this))
-    }
+        this.frustumSize = 1
+        this.aspect = 1
+        this.instance = new THREE.OrthographicCamera(
+            this.frustumSize * this.aspect / -2,
+            this.frustumSize * this.aspect / 2,
+            this.frustumSize / 2,
+            this.frustumSize / -2,
+            -1000,
+            1000
+        )
 
-    config () {
         this.sizes.on('resize', this.cameraResizeUpdate.bind(this))
-        // this.scene.add(this.cameraGroup)
-        this.instance.position.set(0, 0, 0)
-        // this.instance.lookAt(0, 0, 0)
-        this.cameraGroup.add(this.instance)
     }
 
-    setControls () {
-        this.controls = new OrbitControls(this.instance, this.canvas)
-        this.controls.enableDamping = true
-    }
+
+
 
     cameraResizeUpdate () {
         this.instance.aspect = this.sizes.width / this.sizes.height
         this.instance.updateProjectionMatrix()
     }
 
-    update () {
-        this.controls.update()
-    }
+
 }
 
 export default Camera

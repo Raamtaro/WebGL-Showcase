@@ -88,7 +88,7 @@ class GpgpuComputation {
         const deltaTime = this.time.delta / 1000
 
         const targetVelocity = this.cursor.targetVelocity
-        const mouse = this.cursor.followMouse
+        const mouse = this.cursor.ndcFollowMouse
         
 
         this.particlesVariable.material.uniforms.uTime.value = elapsedTime
