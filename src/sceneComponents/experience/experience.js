@@ -66,6 +66,7 @@ class Experience {
     }
 
     update() {
+        this.cursor.calculateSpeed()
         this.output.update()
         this.renderScene()
     }

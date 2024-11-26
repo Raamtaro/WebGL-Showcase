@@ -18,18 +18,26 @@ class Cursor extends EventEmitter {
         this.ndcPreviousMouse = new THREE.Vector2()
         this.ndcDiff = new THREE.Vector2()
 
+        this.timer = null
+
         this.ease = 0.06
 
         this.velocity = 0
         this.targetVelocity = 0
 
         window.addEventListener('mousemove', this.handleMouse.bind(this))
-        this.experience.time.on('tick', this.handleTick.bind(this)) 
+        // this.experience.time.on('tick', this.handleTick.bind(this)) 
     }
 
     handleMouse(event) {
+        if(this.timer) clearTimeout(this.timer);
         this.ndcMouse.x = (event.clientX / this.sizes.width) * 2 - 1;
         this.ndcMouse.y = -(event.clientY / this.sizes.height) * 2 + 1;
+        this.mouseMoved = true;
+        this.timer = setTimeout(() => {
+            this.mouseMoved = false;
+        }, 100);
+        
 
         // console.log(this.ndcMouse)
     }
@@ -39,15 +47,9 @@ class Cursor extends EventEmitter {
     }
 
     calculateSpeed() {
-        this.velocity = Math.sqrt( (this.ndcPreviousMouse.x - this.ndcMouse.x)**2 + (this.ndcPreviousMouse.y - this.ndcMouse.y)**2)
-        this.targetVelocity -= this.ease * (this.targetVelocity - this.velocity)
-
-        this.ndcDiff.subVectors(this.ndcMouse, this.ndcPreviousMouse);
-        this.ndcPreviousMouse.copy(this.ndcMouse);
-
-        if (this.ndcDiff.lengthSq() === 0) {
-            this.ndcDiff.set(0, 0);
-        }
+        this.ndcDiff = this.ndcDiff.subVectors(this.ndcPreviousMouse, this.ndcMouse);
+        this.ndcPreviousMouse.copy(this.ndcMouse)
+        // console.log(this.ndcDiff)
     }
 }
 

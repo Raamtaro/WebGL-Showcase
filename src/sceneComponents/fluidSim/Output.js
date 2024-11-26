@@ -45,7 +45,7 @@ class Output {
             )
         )
         this.output.position.set(0, 0, 0)
-        this.output.visible = true
+        this.output.visible = false
 
         this.debugQuad = new THREE.Mesh(
             new THREE.PlaneGeometry(1, 1),
