@@ -44,6 +44,7 @@ class LotusParticles {
         }
 
         this.uniforms = {
+            uTime: new THREE.Uniform(0.0),
             uSize: new THREE.Uniform(0.004),
             uResolution: new THREE.Uniform(new THREE.Vector2(this.sizes.width * this.sizes.pixelRatio, this.sizes.height * this.sizes.pixelRatio)),
             uParticlesTexture: new THREE.Uniform(),
@@ -122,8 +123,8 @@ class LotusParticles {
         this.points.frustumCulled = false
 
         this.points.renderOrder = 0
-        this.points.position.set(0, 0, -6)
-        // this.scene.add(this.points)
+        this.points.position.set(0, 0, 0)
+        this.scene.add(this.points)
 
     }
 
@@ -137,6 +138,7 @@ class LotusParticles {
         
         this.shaderMaterial.uniforms.uParticlesTexture.value = this.gpgpu.instance.getCurrentRenderTarget(this.gpgpu.particlesVariable).texture
         this.shaderMaterial.uniforms.uMouse.value.set(this.cursor.ndcFollowMouse) 
+        this.shaderMaterial.uniforms.uTime.value = elapsedTime
 
         this.points.rotation.x = 0.1 * Math.sin(this.points.rotation.y + elapsedTime*0.2)
 

@@ -45,14 +45,14 @@ class Experience {
         
 
         // this.loadingScreen = new LoadingScreen()
-        this.output = new Output()
+        // this.output = new Output()
         this.resources = new Resources(sources)
         this.resources.on('ready', this.startup.bind(this))
     }
 
     startup() { 
 
-        // this.lotusParticles = new LotusParticles()
+        this.lotusParticles = new LotusParticles()
         // this.output = new Output()
         
 
@@ -61,13 +61,13 @@ class Experience {
 
 
     renderScene () {
-        this.renderer.instance.setRenderTarget(null)
+        // this.renderer.instance.setRenderTarget(null)
         this.renderer.instance.render(this.scene, this.camera.instance)
     }
 
     update() {
         this.cursor.calculateSpeed()
-        this.output.update()
+        // this.output.update()
         this.renderScene()
     }
 }

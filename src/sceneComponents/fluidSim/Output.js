@@ -45,15 +45,15 @@ class Output {
             )
         )
         this.output.position.set(0, 0, 0)
-        this.output.visible = false
+        // this.output.visible = false
 
         this.debugQuad = new THREE.Mesh(
-            new THREE.PlaneGeometry(1, 1),
+            new THREE.PlaneGeometry(.5, .5),
             new THREE.MeshBasicMaterial({ map: this.simulation.fbos.vel_0.texture })
           );
-        this.debugQuad.position.set(0, 0, 0); 
+        this.debugQuad.position.set(-.75, 0.75, 0); 
 
-        this.debugQuad.visible = true
+        // this.debugQuad.visible = true
         this.scene.add(this.debugQuad);
 
         this.scene.add(this.output)

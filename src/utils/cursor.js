@@ -47,8 +47,17 @@ class Cursor extends EventEmitter {
     }
 
     calculateSpeed() {
+        this.velocity = Math.sqrt( (this.ndcPreviousMouse.x - this.ndcMouse.x)**2 + (this.ndcPreviousMouse.y - this.ndcMouse.y)**2)
+        this.targetVelocity -= this.ease * (this.targetVelocity - this.velocity)
+
+        this.ndcFollowMouse.x -= this.ease * (this.ndcFollowMouse.x - this.ndcMouse.x)
+        this.ndcFollowMouse.y -= this.ease * (this.ndcFollowMouse.y - this.ndcMouse.y)
+
+
         this.ndcDiff = this.ndcDiff.subVectors(this.ndcPreviousMouse, this.ndcMouse);
         this.ndcPreviousMouse.copy(this.ndcMouse)
+
+        
         // console.log(this.ndcDiff)
     }
 }

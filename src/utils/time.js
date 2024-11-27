@@ -24,7 +24,7 @@ class Time extends EventEmitter {
     tick() { 
         stats.begin()
         const currentTime = Date.now()
-        this.delta =  Math.min(0.01, currentTime - this.current)
+        this.delta =  currentTime - this.current
         this.current = currentTime
         this.elapsed = this.current - this.start
         // console.log(this.delta / 1000) //helps convert from ms to s

@@ -29,6 +29,8 @@ class Resources extends EventEmitter { //For now this will just be a GLTF Loader
         this.loaders.gltfLoader.setDRACOLoader(this.loaders.dracoLoader)
         
         this.loaders.textureLoader = new THREE.TextureLoader()
+
+
     }
 
     async startLoading () {
@@ -61,7 +63,7 @@ class Resources extends EventEmitter { //For now this will just be a GLTF Loader
                 console.warn(`unknown resource type: ${sources.type}`)
         }
 
-        // console.log('loading resource...')
+        console.log(`loading resource ${source.name}`)
 
         try {
             file = await loader.loadAsync(source.path)
