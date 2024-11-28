@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import Sizes from '../../utils/sizes.js'
 import Cursor from '../../utils/cursor.js'
 
-import Resources from '../../utils/Resources.js'
+import Resources from '../../utils/resources.js'
 import Time from '../../utils/time.js'
 import Camera from './camera.js'
 import Renderer from './renderer.js'
