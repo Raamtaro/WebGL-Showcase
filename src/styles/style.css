@@ -21,6 +21,20 @@ html, body{
    
 }
 
+#cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1000px; /* Adjust size as needed */
+    height: 1000px;
+    border-radius: 50%;
+    color: rgb(255, 255, 255);
+    background-color: rgb(235, 235, 235);
+    pointer-events: none; /* Allow clicks to pass through */
+    mix-blend-mode: difference; /* Invert colors under the cursor */
+    z-index: 10; /* Ensure it's on top */
+}
+
 .loading-bar
 {
     position: absolute;

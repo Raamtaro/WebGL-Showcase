@@ -75,9 +75,9 @@ class GpgpuComputation {
         this.particlesVariable.material.uniforms.uTime = new THREE.Uniform(0)
         this.particlesVariable.material.uniforms.uDeltaTime = new THREE.Uniform(0)
         this.particlesVariable.material.uniforms.uBase = new THREE.Uniform(this.baseParticlesTexture)
-        this.particlesVariable.material.uniforms.uFlowFieldInfluence = new THREE.Uniform(0.424)
-        this.particlesVariable.material.uniforms.uFlowFieldStrength = new THREE.Uniform(1.15)
-        this.particlesVariable.material.uniforms.uFlowFieldFrequency = new THREE.Uniform(0.472)
+        this.particlesVariable.material.uniforms.uFlowFieldInfluence = new THREE.Uniform(0.404)
+        this.particlesVariable.material.uniforms.uFlowFieldStrength = new THREE.Uniform(1.25)
+        this.particlesVariable.material.uniforms.uFlowFieldFrequency = new THREE.Uniform(0.572)
         this.particlesVariable.material.uniforms.uVelocity = new THREE.Uniform(0.0)
         this.particlesVariable.material.uniforms.uMouse = new THREE.Uniform(new THREE.Vector2(-10.0, 10.0))
 
@@ -96,7 +96,7 @@ class GpgpuComputation {
 
         this.particlesVariable.material.uniforms.uMouse.value.x = mouse.x
         this.particlesVariable.material.uniforms.uMouse.value.y = mouse.y
-        this.particlesVariable.material.uniforms.uVelocity.value = this.cursor.targetVelocity * 0.25
+        this.particlesVariable.material.uniforms.uVelocity.value = this.cursor.targetVelocity * 0.425
         this.cursor.targetVelocity *= .9999999999
         // console.log(this.particlesVariable.material.uniforms.uMouse.value)
     

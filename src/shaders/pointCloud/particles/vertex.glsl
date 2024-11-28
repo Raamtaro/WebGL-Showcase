@@ -131,8 +131,8 @@ void main()
     vec4 particle = texture(uParticlesTexture, aParticlesUv);
 
     vec3 newPos = particle.xyz;
-    float f = .575;
-    float amplitude = 2.295;
+    float f = .675;
+    float amplitude = 2.5;
     float maxDistance = 3.15;
     vec3 target = particle.xyz + curl(newPos.x * f, newPos.y * f, newPos.z * f) * amplitude;
 
@@ -173,7 +173,7 @@ void main()
     // angle /= (M_PI * 20.0);
     // float strength = mod(angle * 20.0, 1.0);
     vUv = uv;
-    vColor = vec3(1.0);
+    vColor = vec3(0.0);
 
     // vColor = mix(mix(uColor, particle.xyz, strength), uShadowColor, strength);
 

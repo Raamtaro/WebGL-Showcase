@@ -148,8 +148,8 @@ void main() {
         
         // // Flow Field Pure Simplex Noise
         // vec3 flowField = vec3(
-        //     simplexNoise4d(vec4(particle.xyz * uFlowFieldFrequency + uVelocity*10.0 + 0.0, time)),
-        //     simplexNoise4d(vec4(particle.xyz * uFlowFieldFrequency + uVelocity*10.0 + (1.0 + uVelocity), time)),
+        //     simplexNoise4d(vec4(particle.xyz * uFlowFieldFrequency + uVelocity + 0.0, time)),
+        //     simplexNoise4d(vec4(particle.xyz * uFlowFieldFrequency + uVelocity + (1.0 + uVelocity), time)),
         //     simplexNoise4d(vec4(particle.xyz * uFlowFieldFrequency  +  2.0, time))
         // );
 
@@ -158,22 +158,22 @@ void main() {
 
         // Pure Curl Noise
         // vec3 flowField = curl(
-        //     (particle.xyz * uFlowFieldFrequency + uVelocity*10.0 + 0.0).x,
-        //     (particle.xyz * uFlowFieldFrequency + uVelocity*10.0 + (1.0 + uVelocity)).y,
-        //     (particle.xyz * uFlowFieldFrequency + uVelocity*10.0 + 2.0).z
+        //     (particle.xyz * uFlowFieldFrequency + uVelocity + 0.0).x,
+        //     (particle.xyz * uFlowFieldFrequency + uVelocity + (1.0 + uVelocity)).y,
+        //     (particle.xyz * uFlowFieldFrequency + uVelocity + 2.0).z
         // );
 
         //Mix(es) of Curl Noise + simplex Noise
         vec3 simplexFlowField = vec3(
-            simplexNoise4d(vec4(particle.xyz * uFlowFieldFrequency + uVelocity*5.0 + 0.0, time)),
-            simplexNoise4d(vec4(particle.xyz * uFlowFieldFrequency + uVelocity*5.0 + (1.0 + uVelocity) , time)),
+            simplexNoise4d(vec4(particle.xyz * uFlowFieldFrequency + uVelocity + 0.0, time)),
+            simplexNoise4d(vec4(particle.xyz * uFlowFieldFrequency + uVelocity + (1.0 + uVelocity) , time)),
             simplexNoise4d(vec4(particle.xyz * uFlowFieldFrequency  +  2.0, time))
         );
         
         vec3 curlFlowField = curl(
-            (particle.xyz * uFlowFieldFrequency*2.0 + uVelocity*10.0 + 0.0).x,
-            (particle.xyz * uFlowFieldFrequency*2.0 + uVelocity*10.0 + (1.0 + uVelocity)).y,
-            (particle.xyz * uFlowFieldFrequency*2.0 + uVelocity*10.0 + 2.0).z
+            (particle.xyz * uFlowFieldFrequency*2.0 + uVelocity + 0.0).x,
+            (particle.xyz * uFlowFieldFrequency*2.0 + uVelocity + (1.0 + uVelocity)).y,
+            (particle.xyz * uFlowFieldFrequency*2.0 + uVelocity + 2.0).z
         ) ;
 
         vec3 flowField = cross(simplexFlowField, curlFlowField);
@@ -181,9 +181,9 @@ void main() {
 
         flowField = normalize(flowField);
         
-        particle.xyz += flowField * uDeltaTime * strength * ((uFlowFieldStrength * uFlowFieldStrength + uVelocity * 5.0 * distFromParticle)/uFlowFieldStrength)*1.25;
+        particle.xyz += flowField * uDeltaTime * strength * ((uFlowFieldStrength * uFlowFieldStrength + uVelocity * 5.0 * distFromParticle)/uFlowFieldStrength);
         
-        particle.a += uDeltaTime * 0.0075;
+        particle.a += uDeltaTime * 0.075;
 
     }
 
