@@ -18,15 +18,16 @@ html, body{
     top: 0;
     left: 0;
     outline: none;
+    
    
 }
 
 #cursor {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 1000px; /* Adjust size as needed */
-    height: 1000px;
+    top: 5px;
+    left: 5px;
+    width: 900px; /* Adjust size as needed */
+    height: 900px;
     border-radius: 50%;
     color: rgb(255, 255, 255);
     background-color: rgb(235, 235, 235);
@@ -35,7 +36,27 @@ html, body{
     z-index: 10; /* Ensure it's on top */
 }
 
-.loading-bar
+.text {
+    position: fixed;
+    color: rgb(235, 235, 235);
+    mix-blend-mode: difference;
+    font-family: 'Mixal';
+    font-size: 5rem;
+
+    
+}
+
+.entropy {
+    top: 5rem;
+    left: 5rem;
+}
+
+.unity {
+    bottom: 5rem;
+    right: 5rem;
+}
+
+/* .loading-bar
 {
     position: absolute;
     top: 50%;
@@ -45,10 +66,17 @@ html, body{
     transform: scaleX(0.0);
     transition: transform 0.5s;
     transform-origin: top left;
-}
+} */
 
-.loading-bar.ended {
+/* .loading-bar.ended {
     transform: scaleX(0);
     transform-origin: 100% 0;
     transition: transform 1.5s ease-in-out;
-}
+} */
+
+@font-face {
+    font-family: 'Mixal';
+    src: url('/fonts/Mixal-UltraBold.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+  }

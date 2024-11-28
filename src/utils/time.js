@@ -1,9 +1,9 @@
 import EventEmitter from "./eventEmitter.js";
 import Stats from "stats.js";
 
-const stats = new Stats()
-stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
-document.body.appendChild(stats.dom)
+// const stats = new Stats()
+// stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+// document.body.appendChild(stats.dom)
 
 class Time extends EventEmitter {
     constructor() {
@@ -22,7 +22,7 @@ class Time extends EventEmitter {
     }
 
     tick() { 
-        stats.begin()
+        // stats.begin()
         const currentTime = Date.now()
         this.delta =  currentTime - this.current
         this.current = currentTime
@@ -31,7 +31,7 @@ class Time extends EventEmitter {
 
         this.trigger('tick')
         requestAnimationFrame(this.tick)
-        stats.end()
+        // stats.end()
     }
 }
 

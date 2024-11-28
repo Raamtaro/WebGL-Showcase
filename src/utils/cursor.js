@@ -35,7 +35,7 @@ class Cursor extends EventEmitter {
         if(this.timer) clearTimeout(this.timer);
         this.ndcMouse.x = (event.clientX / this.sizes.width) * 2 - 1;
         this.ndcMouse.y = -(event.clientY / this.sizes.height) * 2 + 1;
-        this.customCursor.style.transform = `translate(${event.clientX - 500}px, ${event.clientY - 500}px)`;
+        // this.customCursor.style.transform = `translate(${event.clientX - 1000}px, ${event.clientY - 1000}px)`;
         this.mouseMoved = true;
         this.timer = setTimeout(() => {
             this.mouseMoved = false;

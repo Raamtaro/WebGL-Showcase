@@ -132,7 +132,7 @@ void main()
 
     vec3 newPos = particle.xyz;
     float f = .675;
-    float amplitude = 2.5;
+    float amplitude = 2.75;
     float maxDistance = 3.15;
     vec3 target = particle.xyz + curl(newPos.x * f, newPos.y * f, newPos.z * f) * amplitude;
 
