@@ -34,6 +34,7 @@ html, body{
     pointer-events: none; /* Allow clicks to pass through */
     mix-blend-mode: difference; /* Invert colors under the cursor */
     z-index: 10; /* Ensure it's on top */
+    opacity: 0;
 }
 
 .text {
@@ -42,6 +43,7 @@ html, body{
     mix-blend-mode: difference;
     font-family: 'Mixal';
     font-size: 5rem;
+    opacity: 0;
 
     
 }
@@ -56,7 +58,7 @@ html, body{
     right: 5rem;
 }
 
-/* .loading-bar
+.loading-bar
 {
     position: absolute;
     top: 50%;
@@ -66,13 +68,13 @@ html, body{
     transform: scaleX(0.0);
     transition: transform 0.5s;
     transform-origin: top left;
-} */
+}
 
-/* .loading-bar.ended {
+.loading-bar.ended {
     transform: scaleX(0);
     transform-origin: 100% 0;
     transition: transform 1.5s ease-in-out;
-} */
+}
 
 @font-face {
     font-family: 'Mixal';

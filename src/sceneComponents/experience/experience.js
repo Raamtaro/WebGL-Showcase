@@ -11,9 +11,6 @@ import Renderer from './renderer.js'
 //Particles
 import LotusParticles from '../lotusComponents/lotusParticles.js'
 
-//Fluids
-import Output from '../fluidSim/Output.js'
-
 //Final Composition
 import LoadingScreen from './loading.js'
 
@@ -44,7 +41,7 @@ class Experience {
 
         
 
-        // this.loadingScreen = new LoadingScreen()
+        this.loadingScreen = new LoadingScreen()
         // this.output = new Output()
         this.resources = new Resources(sources)
         this.resources.on('ready', this.startup.bind(this))

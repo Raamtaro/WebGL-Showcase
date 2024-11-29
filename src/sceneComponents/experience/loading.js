@@ -48,6 +48,7 @@ class LoadingScreen {
         )
 
         this.instance = new THREE.Mesh(this.geometry, this.material)
+        
         this.scene.add(this.instance)
 
         this.loadingManager = new THREE.LoadingManager(
@@ -56,19 +57,62 @@ class LoadingScreen {
                 {
                     // console.log('loaded')
                     // gsap.to(this.instance.material.uniforms.uAlpha, { duration: 3, value: 0 })
-
+                    
                     window.setTimeout(() => {   
-                        gsap.to(this.instance.material.uniforms.uAlpha, { duration: 3, value: 0, delay: 1 })
 
-                        this.loadingBarElement.classList.add('ended')
-                        this.loadingBarElement.style.transform = ''
+                        const t1 = gsap.timeline({})
+                        t1.to(
+                            this.instance.material.uniforms.uAlpha, 
+                            { 
+                                duration: 1, 
+                                value: 0,
+                                onComplete: () => {
+                                    this.loadingBarElement.classList.add('ended')
+                                    this.loadingBarElement.style.transform = ''
+                                },
+                                delay: .5
+                            }
+                        )
+                        t1.to(
+                            this.cursor.customCursor,
+                            {
+                                duration: 1.0,
+                                opacity: '1.0',
+                                delay: .5
+                            }
+                        )
+                        t1.to(
+                            document.querySelector('.entropy'), 
+                            {
+                                duration: .5,
+                                opacity: '1.0',
+                                stagger: .5
+                            }
+                        )
+                        t1.to(
+                            document.querySelector('.unity'),
+                            {
+                                duration: .5,
+                                opacity: 1.0,
+                                
+                            }
+                        )
+                        
+
+                        // gsap.to(this.instance.material.uniforms.uAlpha, { duration: 3, value: 0, delay: 1 })
+
+                        // this.loadingBarElement.classList.add('ended')
+                        // this.loadingBarElement.style.transform = ''
+
+                        // console.log(this.cursor.customCursor.style)
+                        
                     })
                 },
         
             // Progress
             (itemUrl, itemsLoaded, itemsTotal) =>
                 {
-                    // console.log(itemUrl, itemsLoaded, itemsTotal) //Hello Args
+                    console.log(itemUrl, itemsLoaded, itemsTotal) //Hello Args
 
                     
                     this.progressRatio = itemsLoaded/itemsTotal
