@@ -112,11 +112,11 @@ class LoadingScreen {
             // Progress
             (itemUrl, itemsLoaded, itemsTotal) =>
                 {
-                    console.log(itemUrl, itemsLoaded, itemsTotal) //Hello Args
+                    // console.log(itemUrl, itemsLoaded, itemsTotal) //Hello Args
 
                     
                     this.progressRatio = itemsLoaded/itemsTotal
-                    console.log(this.progressRatio)
+                    // console.log(this.progressRatio)
 
                     this.loadingBarElement.style.transform = `scaleX(${this.progressRatio})`
                 }
