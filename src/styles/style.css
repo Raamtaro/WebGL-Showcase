@@ -44,6 +44,7 @@ html, body{
     font-family: 'Mixal';
     font-size: 10rem;
     opacity: 0;
+    pointer-events: none;
 
     
 }
